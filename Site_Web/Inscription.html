@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Meskin – Prédiagnostic des maladies de peau" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inscription – Meskin</title>
+    <link rel="stylesheet" href="../css/styles1.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f7f9fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 0.3rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-actions {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .btn.primary {
+            background-color: #3498db;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn.primary:hover {
+            background-color: #2980b9;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .message {
+            text-align: center;
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: 1.5rem;
+        }
+
+        .password-toggle {
+            margin-top: -1rem;
+            text-align: right;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: #3498db;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #ecf0f1;
+        }
+
+        .centered-nav {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .centered-nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .centered-nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="centered-nav">
+        <a href="../html/Accueil.html">Accueil</a>
+        <a href="../html/apropos.html">À propos</a>
+        <a href="../html/contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="form-section">
+    <div class="form-container">
+        <form id="inscription-form">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" required />
+
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" required />
+
+            <label for="dob">Date de naissance</label>
+            <input type="date" id="dob" name="dob" required />
+
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" required />
+            <div class="password-toggle" onclick="togglePassword()">Afficher / Cacher le mot de passe</div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary">Valider le formulaire</button>
+            </div>
+        </form>
+
+        <p class="message" id="confirmation-message" style="display: none;">
+            Merci de votre inscription !
+        </p>
+
+        <p class="login-link">
+            Déjà un compte ? <a href="../html/Connection.html">Connectez-vous</a>
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Meskin – Tous droits réservés.</p>
+    <p><a href="../html/apropos.html">À propos</a> | <a href="../html/contact.html">Contact</a></p>
+</footer>
+
+<script>
+document.getElementById("inscription-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Empêche le rechargement
+
+    const nom = document.getElementById("nom").value.trim();
+    const prenom = document.getElementById("prenom").value.trim();
+    const dob = document.getElementById("dob").value;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    // Vérifie si un compte existe déjà
+    if (localStorage.getItem("user_" + email)) {
+        alert("Un compte avec cet email existe déjà.");
+        return;
+    }
+
+    const userData = {
+        nom,
+        prenom,
+        dob,
+        email,
+        password // ⚠️ non sécurisé, juste pour démo
+    };
+
+    localStorage.setItem("user_" + email, JSON.stringify(userData));
+
+    // Affiche un message de confirmation
+    document.getElementById("inscription-form").style.display = "none";
+    document.getElementById("confirmation-message").style.display = "block";
+});
+</script>
+
+</body>
+</html>
+
+
